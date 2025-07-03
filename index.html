@@ -1187,31 +1187,11 @@
             </div>
         </div>
 
-        <!-- Backup Section -->
-        <div class="backup-section">
-            <h3 class="backup-title">
-                💾 Backup & Wiederherstellung
-            </h3>
-            <div class="backup-buttons">
-                <button class="backup-button" onclick="createBackup()">
-                    📦 Backup erstellen
-                </button>
-                <button class="backup-button restore" onclick="document.getElementById('restoreFile').click()">
-                    📥 Backup wiederherstellen
-                </button>
-            </div>
-            <input type="file" id="restoreFile" class="file-input" accept=".json" onchange="restoreBackup(event)">
-            <div class="backup-info">
-                <strong>Backup enthält:</strong> Alle Benutzerprofile, Kategorien, Produkte und Einstellungen<br>
-                <strong>Tipp:</strong> Erstellen Sie regelmäßig Backups vor wichtigen Änderungen
-            </div>
-            <div id="backupStatus" class="backup-status"></div>
-        </div>
-
         <!-- Admin Navigation -->
         <div class="admin-tabs">
             <button class="admin-tab active" onclick="showAdminTab('users')">👤 Benutzer</button>
             <button class="admin-tab" onclick="showAdminTab('products')">📦 Produkte</button>
+            <button class="admin-tab" onclick="showAdminTab('backup')">💾 Backup</button>
         </div>
 
         <!-- Users Tab -->
@@ -1248,6 +1228,30 @@
                 <div style="margin-top: 0.5rem; font-size: 0.9rem; color: #22543d;">
                     Kürzel: 2-3 Buchstaben (z.B. MX, AB, JD)
                 </div>
+            </div>
+        </div>
+
+        <!-- Backup Tab -->
+        <div id="adminBackupTab" class="tab-content">
+            <!-- Backup Section -->
+            <div class="backup-section">
+                <h3 class="backup-title">
+                    💾 Backup & Wiederherstellung
+                </h3>
+                <div class="backup-buttons">
+                    <button class="backup-button" onclick="createBackup()">
+                        📦 Backup erstellen
+                    </button>
+                    <button class="backup-button restore" onclick="document.getElementById('restoreFile').click()">
+                        📥 Backup wiederherstellen
+                    </button>
+                </div>
+                <input type="file" id="restoreFile" class="file-input" accept=".json" onchange="restoreBackup(event)">
+                <div class="backup-info">
+                    <strong>Backup enthält:</strong> Alle Benutzerprofile, Kategorien, Produkte und Einstellungen<br>
+                    <strong>Tipp:</strong> Erstellen Sie regelmäßig Backups vor wichtigen Änderungen
+                </div>
+                <div id="backupStatus" class="backup-status"></div>
             </div>
         </div>
 
@@ -1820,9 +1824,10 @@
             });
             
             // Finde den richtigen Tab-Button
-            const targetTab = Array.from(document.querySelectorAll('.admin-tab')).find(tab => 
+            const targetTab = Array.from(document.querySelectorAll('.admin-tab')).find(tab =>
                 (tabName === 'users' && tab.textContent.includes('Benutzer')) ||
-                (tabName === 'products' && tab.textContent.includes('Produkte'))
+                (tabName === 'products' && tab.textContent.includes('Produkte')) ||
+                (tabName === 'backup' && tab.textContent.includes('Backup'))
             );
             if (targetTab) {
                 targetTab.classList.add('active');
@@ -1843,6 +1848,8 @@
                 document.getElementById('categoryProductsEditor').classList.remove('active');
                 document.getElementById('categoriesTab').classList.add('active');
                 updateCategoryGrid();
+            } else if (tabName === 'backup') {
+                document.getElementById('adminBackupTab').classList.add('active');
             }
         }
 
