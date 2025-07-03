@@ -336,17 +336,25 @@
 
         /* Scrollbares Admin-Produkts-Tab */
         #adminProductsTab {
-            max-height: 70vh;
-            overflow-y: auto;
+    /* max-height: 70vh; /* Consider moving this to individual views if needed */
+    /* overflow-y: auto; */ /* Moved to child elements */
+}
+
+#categoriesTab.active, #categoryProductsEditor.active {
+    max-height: 70vh;
+    overflow-y: auto;
         }
 
+/* REMOVED problematic CSS rules that forced display:block on child tab-content elements */
+/*
         #adminProductsTab .tab-content {
-            display: block; /* Immer sichtbar innerhalb des Admin-Produkts-Tabs */
+    display: block;
         }
 
         #adminProductsTab .tab-content.active {
             display: block;
         }
+*/
 
         .category-grid {
             display: grid;
